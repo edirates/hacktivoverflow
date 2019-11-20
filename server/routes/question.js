@@ -4,6 +4,7 @@ const authentication = require("../middlewares/authentication.js");
 const questionAuthorization = require("../middlewares/questionAuthorization.js");
 
 router.get("/", QuestionController.findAll);
+router.get("/user", authentication, QuestionController.findUser);
 router.get("/:id", QuestionController.findOne);
 
 router.use(authentication);

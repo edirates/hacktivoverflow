@@ -98,17 +98,23 @@ class AnswerController {
     static upvote(req, res, next) {
         Answer.findById(req.params.id)
         .then((answer) => {
-            if (answer.upvotes.includes(req.user._id) === false) {
-                const downvote = answer.downvotes.indexOf(req.user._id);
-                if (downvote >= 0) {
-                    answer.downvotes.splice(downvote, 1);
+            if (answer.UserId != req.user._id) {
+                if (answer.upvotes.includes(req.user._id) === false) {
+                    const downvote = answer.downvotes.indexOf(req.user._id);
+                    if (downvote >= 0) {
+                        answer.downvotes.splice(downvote, 1);
+                    }
+                    answer.upvotes.push(req.user._id);
+                    return answer.save();
+                } else {
+                    const index = answer.upvotes.indexOf(req.user._id);
+                    answer.upvotes.splice(index, 1);
+                    return answer.save();
                 }
-                answer.upvotes.push(req.user._id);
-                return answer.save();
-            } else {
-                const index = answer.upvotes.indexOf(req.user._id);
-                answer.upvotes.splice(index, 1);
-                return answer.save();
+            }
+            else {
+                let err = { status: 400, message: `You cannot vote your own answer` };
+                throw err;
             }
         })
         .then((voted) => {
@@ -122,17 +128,23 @@ class AnswerController {
     static downvote(req, res, next) {
         Answer.findById(req.params.id)
         .then((answer) => {
-            if (answer.downvotes.includes(req.user._id) === false) {
-                const upvote = answer.upvotes.indexOf(req.user._id);
-                if (upvote >= 0) {
-                    answer.upvotes.splice(upvote, 1);
+            if (answer.UserId != req.user._id) {
+                if (answer.downvotes.includes(req.user._id) === false) {
+                    const upvote = answer.upvotes.indexOf(req.user._id);
+                    if (upvote >= 0) {
+                        answer.upvotes.splice(upvote, 1);
+                    }
+                    answer.downvotes.push(req.user._id);
+                    return answer.save();
+                } else {
+                    const index = answer.downvotes.indexOf(req.user._id);
+                    answer.downvotes.splice(index, 1);
+                    return answer.save();
                 }
-                answer.downvotes.push(req.user._id);
-                return answer.save();
-            } else {
-                const index = answer.downvotes.indexOf(req.user._id);
-                answer.downvotes.splice(index, 1);
-                return answer.save();
+            }
+            else {
+                let err = { status: 400, message: `You cannot vote your own answer` };
+                throw err;
             }
         })
         .then((voted) => {

@@ -16,6 +16,21 @@ class QuestionController {
         });
     }
 
+    static findUser (req, res, next) {
+        Question.find({
+            UserId: req.user._id
+        })
+        .sort({
+            createdAt: "DESC"
+        })
+        .then((questions) => {
+            res.status(200).json(questions);
+        })
+        .catch((err) => {
+            next(err);
+        });
+    }
+
     static findOne (req, res, next) {
         Question.findById(req.params.id)
         .populate({
@@ -47,14 +62,10 @@ class QuestionController {
     }
 
     static create (req, res, next) {
-        let tags = [];
-        if (req.body.tags) {
-            tags = req.body.tags.split(",");
-        }
         Question.create({
             title: req.body.title,
             description: req.body.description,
-            tags: tags,
+            tags: req.body.tags,
             UserId: req.user._id
         })
         .then((question) => {
@@ -66,15 +77,11 @@ class QuestionController {
     }
 
     static update (req, res, next) {
-        let tags = [];
-        if (req.body.tags) {
-            tags = req.body.tags.split(",");
-        }
         Question.findByIdAndUpdate(req.params.id, 
         { $set: {
             title: req.body.title,
             description: req.body.description,
-            tags: tags
+            tags: req.body.tags
         }}, { 
             omitUndefined: true, 
             runValidators:true, 
@@ -111,12 +118,12 @@ class QuestionController {
     static solution(req, res, next) {
         Question.findById(req.params.id)
         .then((question) => {
-            if (question.solution !== req.body.AnswerId) {
+            if (question.solution != req.body.AnswerId) {
                 question.solution = req.body.AnswerId;
                 return question.save();
             } 
             else {
-                question.solution = "";
+                question.solution = null;
                 return question.save();
             }
         })
@@ -131,17 +138,23 @@ class QuestionController {
     static upvote(req, res, next) {
         Question.findById(req.params.id)
         .then((question) => {
-            if (question.upvotes.includes(req.user._id) === false) {
-                const downvote = question.downvotes.indexOf(req.user._id);
-                if (downvote >= 0) {
-                    question.downvotes.splice(downvote, 1);
+            if (question.UserId != req.user._id) {
+                if (question.upvotes.includes(req.user._id) === false) {
+                    const downvote = question.downvotes.indexOf(req.user._id);
+                    if (downvote >= 0) {
+                        question.downvotes.splice(downvote, 1);
+                    }
+                    question.upvotes.push(req.user._id);
+                    return question.save();
+                } else {
+                    const index = question.upvotes.indexOf(req.user._id);
+                    question.upvotes.splice(index, 1);
+                    return question.save();
                 }
-                question.upvotes.push(req.user._id);
-                return question.save();
-            } else {
-                const index = question.upvotes.indexOf(req.user._id);
-                question.upvotes.splice(index, 1);
-                return question.save();
+            }
+            else {
+                let err = { status: 400, message: `You cannot vote your own question` };
+                next(err);
             }
         })
         .then((voted) => {
@@ -155,17 +168,23 @@ class QuestionController {
     static downvote(req, res, next) {
         Question.findById(req.params.id)
         .then((question) => {
-            if (question.downvotes.includes(req.user._id) === false) {
-                const upvote = question.upvotes.indexOf(req.user._id);
-                if (upvote >= 0) {
-                    question.upvotes.splice(upvote, 1);
+            if (question.UserId != req.user._id) {
+                if (question.downvotes.includes(req.user._id) === false) {
+                    const upvote = question.upvotes.indexOf(req.user._id);
+                    if (upvote >= 0) {
+                        question.upvotes.splice(upvote, 1);
+                    }
+                    question.downvotes.push(req.user._id);
+                    return question.save();
+                } else {
+                    const index = question.downvotes.indexOf(req.user._id);
+                    question.downvotes.splice(index, 1);
+                    return question.save();
                 }
-                question.downvotes.push(req.user._id);
-                return question.save();
-            } else {
-                const index = question.downvotes.indexOf(req.user._id);
-                question.downvotes.splice(index, 1);
-                return question.save();
+            }
+            else {
+                let err = { status: 400, message: `You cannot vote your own question` };
+                next(err);
             }
         })
         .then((voted) => {

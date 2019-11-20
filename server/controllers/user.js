@@ -41,6 +41,20 @@ class UserController {
             next(err);
         });
     }
+    static findOne(req, res, next) {
+        User.findById(req.user._id)
+        .then((user) => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                let err = { status: 400, message: "User not found" };
+                next(err);
+            }
+        })
+        .catch((err) => {
+            next(err);
+        });
+    }
     // static gsignin (req, res, next) {
     //     User.findOne({
     //         email: req.user.email
