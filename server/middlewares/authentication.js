@@ -1,0 +1,26 @@
+const User = require("../models/user.js");
+const jwt = require("../helpers/jwt.js");
+
+function authenticate (req, res, next) {
+    try {
+        const decoded = jwt.verify(req.headers.jwt_token);
+        User.findOne({
+            email: decoded.email
+        })
+        .then((user) => {
+            if (user) {
+                req.user = decoded;
+                next();
+            } else {
+                let err = { status: 404, message: `User not found` }
+                next(err);
+            }
+        });
+    }
+    catch (err) {
+        err = { status: 403, message: `You must log in first` }
+        next(err);
+    }
+}
+
+module.exports = authenticate;

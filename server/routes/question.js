@@ -1,0 +1,17 @@
+const router = require("express").Router();
+const QuestionController = require("../controllers/question.js");
+const authentication = require("../middlewares/authentication.js");
+const questionAuthorization = require("../middlewares/questionAuthorization.js");
+
+router.get("/", QuestionController.findAll);
+router.get("/:id", QuestionController.findOne);
+
+router.use(authentication);
+router.post("/", QuestionController.create);
+router.patch("/upvote/:id", QuestionController.upvote);
+router.patch("/downvote/:id", QuestionController.downvote);
+router.patch('/solution/:id', questionAuthorization, QuestionController.solution);
+router.put("/:id", questionAuthorization, QuestionController.update);
+router.delete("/:id", questionAuthorization, QuestionController.delete);
+
+module.exports = router;
