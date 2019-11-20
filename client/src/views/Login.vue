@@ -17,50 +17,50 @@
 
 <script>
 export default {
-    name: 'Login',
-    data: () => ({
-        email: '',
-        password: '',
-    }),
-    methods: {
-        login() {
-            this.$store.dispatch('login', {
-                email: this.email, 
-                password: this.password
-            })
-            .then((response) => {
-                localStorage.setItem('token', response.data.jwt_token);
-                this.$store.commit('SET_USER', response.data.user_data);
-                this.$store.commit('SET_LOGIN');
-                this.$router.push('/');
-                this.success("Login successfully");
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        success(message) {
-            this.$buefy.toast.open({
-                duration: 1500,
-                message: message,
-                position: "is-top",
-                type: "is-success"
-            })
-        },
-        danger(message) {
-            if (Array.isArray(message)) {
-                message = message.join(", ");
-            }
-            this.$buefy.toast.open({
-                duration: 2000,
-                message: message,
-                position: "is-top",
-                type: "is-danger"
-            })
-        }
-    }
-}
+  name: 'Login',
+  data: () => ({
+    email: '',
+    password: '',
+  }),
+  methods: {
+    login() {
+      this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password,
+      })
+        .then((response) => {
+          localStorage.setItem('token', response.data.jwt_token);
+          this.$store.commit('SET_USER', response.data.user_data);
+          this.$store.commit('SET_LOGIN');
+          this.$router.push('/');
+          this.success('Login successfully');
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    success(message) {
+      this.$buefy.toast.open({
+        duration: 1500,
+        message,
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    danger(message) {
+      if (Array.isArray(message)) {
+        message = message.join(', ');
+      }
+      this.$buefy.toast.open({
+        duration: 2000,
+        message,
+        position: 'is-top',
+        type: 'is-danger',
+      });
+    },
+  },
+};
 </script>
 
 <style>

@@ -22,66 +22,66 @@
 </template>
 
 <script>
-import { quillEditor } from "vue-quill-editor";
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
-    name: 'AnswerEdit',
-    data: () => ({
-        description: "",
-    }),
-    methods: {
-        getAnswerDetail() {
-            this.$store.dispatch('getAnswerDetail', this.$route.params.id)
-            .then((response) => {
-                this.description = response.data.description;
-                this.$store.commit('SET_ANSWER_DETAIL', response.data);
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        editAnswer() {
-            this.$store.dispatch('editAnswer', {
-                description: this.description,
-                AnswerId: this.$route.params.id
-            })
-            .then((response) => {
-                this.success("Answer edited successfully");
-                this.$router.back();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        success(message) {
-            this.$buefy.toast.open({
-                duration: 1500,
-                message: message,
-                position: "is-top",
-                type: "is-success"
-            })
-        },
-        danger(message) {
-            if (Array.isArray(message)) {
-                message = message.join(", ");
-            }
-            this.$buefy.toast.open({
-                duration: 2000,
-                message: message,
-                position: "is-top",
-                type: "is-danger"
-            })
-        }
+  name: 'AnswerEdit',
+  data: () => ({
+    description: '',
+  }),
+  methods: {
+    getAnswerDetail() {
+      this.$store.dispatch('getAnswerDetail', this.$route.params.id)
+        .then((response) => {
+          this.description = response.data.description;
+          this.$store.commit('SET_ANSWER_DETAIL', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    created() {
-        this.getAnswerDetail();
+    editAnswer() {
+      this.$store.dispatch('editAnswer', {
+        description: this.description,
+        AnswerId: this.$route.params.id,
+      })
+        .then((response) => {
+          this.success('Answer edited successfully');
+          this.$router.back();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    components: {
-        quillEditor
-    }
-}
+    success(message) {
+      this.$buefy.toast.open({
+        duration: 1500,
+        message,
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    danger(message) {
+      if (Array.isArray(message)) {
+        message = message.join(', ');
+      }
+      this.$buefy.toast.open({
+        duration: 2000,
+        message,
+        position: 'is-top',
+        type: 'is-danger',
+      });
+    },
+  },
+  created() {
+    this.getAnswerDetail();
+  },
+  components: {
+    quillEditor,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

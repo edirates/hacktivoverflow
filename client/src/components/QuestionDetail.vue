@@ -42,7 +42,7 @@
                 <i @click="upvoteAnswer(answer._id)" class="fas fa-caret-up fa-3x" style="cursor:pointer"></i>
                 <div><b> {{ answer.upvotes.length - answer.downvotes.length }} </b></div>
                 <i @click="downvoteAnswer(answer._id)" class="fas fa-caret-down fa-3x" style="cursor:pointer"></i><br/>
-                <i v-if="$store.state.question_detail.solution === answer._id" @click="addSolution($store.state.question_detail._id, answer._id)" class="fas fa-check fa-2x" style="cursor:pointer; color:green;"></i>
+                <i v-if="$store.state.question_detail.solution === answer._id" @click="addSolution($store.state.question_detail._id, answer._id)" class="fas fa-check fa-2x" style="cursor:pointer; color:ForestGreen;"></i>
                 <i v-else @click="addSolution($store.state.question_detail._id, answer._id)" class="fas fa-check fa-2x" style="cursor:pointer;"></i>
             </figure>
             <div class="media-content">
@@ -92,146 +92,146 @@
 
 <script>
 import moment from 'moment';
-import { quillEditor } from "vue-quill-editor";
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
-    name: 'QuestionDetail',
-    data: () => ({
-        description: ''
-    }),
-    methods: {
-        getQuestionDetail() {
-            this.$store.dispatch('getQuestionDetail', this.$route.params.id)
-            .then((response) => {
-                this.$store.commit('SET_QUESTION_DETAIL', response.data);
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        upvoteQuestion(id) {
-            this.$store.dispatch('upvoteQuestion', id)
-            .then((response) => {
-                this.success(response.data.message);
-                this.getQuestionDetail();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        downvoteQuestion(id) {
-            this.$store.dispatch('downvoteQuestion', id)
-            .then((response) => {
-                this.success(response.data.message);
-                this.getQuestionDetail();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        upvoteAnswer(id) {
-            this.$store.dispatch('upvoteAnswer', id)
-            .then((response) => {
-                this.success(response.data.message);
-                this.getQuestionDetail();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        downvoteAnswer(id) {
-            this.$store.dispatch('downvoteAnswer', id)
-            .then((response) => {
-                this.success(response.data.message);
-                this.getQuestionDetail();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        addSolution(questionId, answerId) {
-            this.$store.dispatch('addSolution', {
-                questionId,
-                answerId
-            })
-            .then((response) => {
-                this.success(response.data.message);
-                this.getQuestionDetail();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        addAnswer(questionId) {
-            this.$store.dispatch('addAnswer', {
-                QuestionId: questionId,
-                description: this.description,
-            })
-            .then((response) => {
-                this.success("Answer posted successfully");
-                this.getQuestionDetail();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        deleteAnswer(id) {
-            this.$buefy.dialog.confirm({
-                title: 'Deleting answer',
-                message: 'Are you sure you want to <b>delete</b> your answer? This action cannot be undone.',
-                confirmText: 'Delete Answer',
-                type: 'is-danger',
-                hasIcon: true,
-                onConfirm: () => {
-                    this.$store.dispatch('deleteAnswer', id)
-                    .then((response) => {
-                        this.success(response.data.message);
-                        this.getQuestionDetail();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        this.danger(err.response.data.message);
-                    });
-                }
-            });
-        },
-        formatDate(date) {
-            return moment(new Date(date)).fromNow();
-        },
-        success(message) {
-            this.$buefy.toast.open({
-                duration: 1500,
-                message: message,
-                position: "is-top",
-                type: "is-success"
-            })
-        },
-        danger(message) {
-            if (Array.isArray(message)) {
-                message = message.join(", ");
-            }
-            this.$buefy.toast.open({
-                duration: 2000,
-                message: message,
-                position: "is-top",
-                type: "is-danger"
-            })
-        }
+  name: 'QuestionDetail',
+  data: () => ({
+    description: '',
+  }),
+  methods: {
+    getQuestionDetail() {
+      this.$store.dispatch('getQuestionDetail', this.$route.params.id)
+        .then((response) => {
+          this.$store.commit('SET_QUESTION_DETAIL', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    created() {
-        this.getQuestionDetail();
+    upvoteQuestion(id) {
+      this.$store.dispatch('upvoteQuestion', id)
+        .then((response) => {
+          this.success(response.data.message);
+          this.getQuestionDetail();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    components: {
-        quillEditor
-    }
-}
+    downvoteQuestion(id) {
+      this.$store.dispatch('downvoteQuestion', id)
+        .then((response) => {
+          this.success(response.data.message);
+          this.getQuestionDetail();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    upvoteAnswer(id) {
+      this.$store.dispatch('upvoteAnswer', id)
+        .then((response) => {
+          this.success(response.data.message);
+          this.getQuestionDetail();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    downvoteAnswer(id) {
+      this.$store.dispatch('downvoteAnswer', id)
+        .then((response) => {
+          this.success(response.data.message);
+          this.getQuestionDetail();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    addSolution(questionId, answerId) {
+      this.$store.dispatch('addSolution', {
+        questionId,
+        answerId,
+      })
+        .then((response) => {
+          this.success(response.data.message);
+          this.getQuestionDetail();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    addAnswer(questionId) {
+      this.$store.dispatch('addAnswer', {
+        QuestionId: questionId,
+        description: this.description,
+      })
+        .then((response) => {
+          this.success('Answer posted successfully');
+          this.getQuestionDetail();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    deleteAnswer(id) {
+      this.$buefy.dialog.confirm({
+        title: 'Deleting answer',
+        message: 'Are you sure you want to <b>delete</b> your answer? This action cannot be undone.',
+        confirmText: 'Delete Answer',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          this.$store.dispatch('deleteAnswer', id)
+            .then((response) => {
+              this.success(response.data.message);
+              this.getQuestionDetail();
+            })
+            .catch((err) => {
+              console.log(err);
+              this.danger(err.response.data.message);
+            });
+        },
+      });
+    },
+    formatDate(date) {
+      return moment(new Date(date)).fromNow();
+    },
+    success(message) {
+      this.$buefy.toast.open({
+        duration: 1500,
+        message,
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    danger(message) {
+      if (Array.isArray(message)) {
+        message = message.join(', ');
+      }
+      this.$buefy.toast.open({
+        duration: 2000,
+        message,
+        position: 'is-top',
+        type: 'is-danger',
+      });
+    },
+  },
+  created() {
+    this.getQuestionDetail();
+  },
+  components: {
+    quillEditor,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

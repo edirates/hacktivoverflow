@@ -14,18 +14,18 @@ export default {
     if (localStorage.getItem('token')) {
       this.$store.commit('SET_LOGIN');
       this.$store.dispatch('getUserData')
-      .then((response) => {
+        .then((response) => {
           this.$store.commit('SET_USER', response.data);
-      })
-      .catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
           this.danger(err.response.data.message);
-      });
+        });
     }
   },
   components: {
     NavBar,
-  }
+  },
 };
 </script>
 

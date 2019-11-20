@@ -28,71 +28,71 @@
 </template>
 
 <script>
-import { quillEditor } from "vue-quill-editor";
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
-    name: 'QuestionEdit',
-    data: () => ({
-        title: "",
-        description: "",
-        tags: [],
-    }),
-    methods: {
-        getQuestionDetail() {
-            this.$store.dispatch('getQuestionDetail', this.$route.params.id)
-            .then((response) => {
-                this.title = response.data.title;
-                this.description = response.data.description;
-                this.tags = response.data.tags;
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        editQuestion() {
-            this.$store.dispatch('editQuestion', {
-                title: this.title,
-                description: this.description,
-                tags: this.tags,
-                QuestionId: this.$route.params.id,
-            })
-            .then((response) => {
-                this.success("Question edited successfully");
-                this.$router.back();
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        success(message) {
-            this.$buefy.toast.open({
-                duration: 1500,
-                message: message,
-                position: "is-top",
-                type: "is-success"
-            })
-        },
-        danger(message) {
-            if (Array.isArray(message)) {
-                message = message.join(", ");
-            }
-            this.$buefy.toast.open({
-                duration: 2000,
-                message: message,
-                position: "is-top",
-                type: "is-danger"
-            })
-        }
+  name: 'QuestionEdit',
+  data: () => ({
+    title: '',
+    description: '',
+    tags: [],
+  }),
+  methods: {
+    getQuestionDetail() {
+      this.$store.dispatch('getQuestionDetail', this.$route.params.id)
+        .then((response) => {
+          this.title = response.data.title;
+          this.description = response.data.description;
+          this.tags = response.data.tags;
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    created() {
-        this.getQuestionDetail();
+    editQuestion() {
+      this.$store.dispatch('editQuestion', {
+        title: this.title,
+        description: this.description,
+        tags: this.tags,
+        QuestionId: this.$route.params.id,
+      })
+        .then((response) => {
+          this.success('Question edited successfully');
+          this.$router.back();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    components: {
-        quillEditor
-    }
-}
+    success(message) {
+      this.$buefy.toast.open({
+        duration: 1500,
+        message,
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    danger(message) {
+      if (Array.isArray(message)) {
+        message = message.join(', ');
+      }
+      this.$buefy.toast.open({
+        duration: 2000,
+        message,
+        position: 'is-top',
+        type: 'is-danger',
+      });
+    },
+  },
+  created() {
+    this.getQuestionDetail();
+  },
+  components: {
+    quillEditor,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

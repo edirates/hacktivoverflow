@@ -4,7 +4,7 @@
       <img src="../assets/background.png" alt="home-logo" style="background-size:cover; background-position:center; background-repeat:no-repeat; width:100%; max-height:660px;">
     </div>
     <div v-else class="column" style="display:flex;">
-      <div class="column is-one-fifth" style="text-align:left; border-right:2px solid whitesmoke; height:100vh;">
+      <div class="column is-one-fifth" style="text-align:left; border-right:2px solid whitesmoke;">
         <SideBar></SideBar>
       </div>
       <div class="column is-four-fifths">
@@ -21,6 +21,6 @@ export default {
   name: 'home',
   components: {
     SideBar,
-  }
+  },
 };
 </script>

@@ -58,7 +58,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "edit-answer" */ '../components/AnswerEdit.vue'),
       },
-    ]
+    ],
   },
   {
     path: '/signin',

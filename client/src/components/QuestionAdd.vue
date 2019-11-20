@@ -28,55 +28,55 @@
 </template>
 
 <script>
-import { quillEditor } from "vue-quill-editor";
+import { quillEditor } from 'vue-quill-editor';
 
 export default {
-    name: 'QuestionAdd',
-    data: () => ({
-        title: "",
-        description: "",
-        tags: []
-    }),
-    methods: {
-        addQuestion() {
-            this.$store.dispatch('addQuestion', {
-                title: this.title, 
-                description: this.description,
-                tags: this.tags
-            })
-            .then((response) => {
-                this.$router.push('/');
-                this.success("Question posted successfully");
-            })
-            .catch((err) => {
-                console.log(err);
-                this.danger(err.response.data.message);
-            });
-        },
-        success(message) {
-            this.$buefy.toast.open({
-                duration: 1500,
-                message: message,
-                position: "is-top",
-                type: "is-success"
-            })
-        },
-        danger(message) {
-            if (Array.isArray(message)) {
-                message = message.join(", ");
-            }
-            this.$buefy.toast.open({
-                duration: 2000,
-                message: message,
-                position: "is-top",
-                type: "is-danger"
-            })
-        }
+  name: 'QuestionAdd',
+  data: () => ({
+    title: '',
+    description: '',
+    tags: [],
+  }),
+  methods: {
+    addQuestion() {
+      this.$store.dispatch('addQuestion', {
+        title: this.title,
+        description: this.description,
+        tags: this.tags,
+      })
+        .then((response) => {
+          this.success('Question posted successfully');
+          this.$router.back();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
     },
-    components: {
-        quillEditor
-    }
-}
+    success(message) {
+      this.$buefy.toast.open({
+        duration: 1500,
+        message,
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    danger(message) {
+      if (Array.isArray(message)) {
+        message = message.join(', ');
+      }
+      this.$buefy.toast.open({
+        duration: 2000,
+        message,
+        position: 'is-top',
+        type: 'is-danger',
+      });
+    },
+  },
+  components: {
+    quillEditor,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
