@@ -3,7 +3,7 @@
         <b-menu-list label="Public">
             <b-menu-item icon="earth" label="Stack Overflow" @click.prevent="$router.push('/')"></b-menu-item>
             <b-menu-item icon="account" label="My Questions" @click.prevent="$router.push('/my-questions')"></b-menu-item>
-            <!-- <b-menu-item icon="label" label="Watched Tag" @click.prevent="$router.push('/watchedtags')"></b-menu-item> -->
+            <!-- <b-menu-item icon="label" label="Watched Tag" @click.prevent="$router.push('/watched-tags')"></b-menu-item> -->
         </b-menu-list>
     </b-menu>
 </template>

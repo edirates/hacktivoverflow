@@ -12,7 +12,7 @@
                     <quillEditor v-model="description"></quillEditor>
                 </b-field>
                 <b-field label="Tags">
-                    <b-taginput v-model="tags" ellipsis icon="label" placeholder="Tags"></b-taginput>
+                    <b-taginput v-model="tags" ellipsis icon="label" placeholder="Tags" type="is-primary"></b-taginput>
                 </b-field>
                 <b-button native-type="submit" type="is-info" style="margin-top:10px; margin-right:10px;">
                     <i class="fas fa-paste" style="margin-right:10px;"></i>
