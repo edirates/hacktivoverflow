@@ -58,6 +58,15 @@ export default new Vuex.Store({
         },
       });
     },
+    glogin(context, payload) {
+      return axios({
+        method: 'POST',
+        url: '/users/gsignin',
+        data: {
+          idToken: payload.idToken
+        },
+      });
+    },
     getUserData(context) {
       return axios({
         method: 'GET',
