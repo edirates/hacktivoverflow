@@ -91,6 +91,15 @@ export default new Vuex.Store({
         },
       });
     },
+    viewQuestion(context, payload) {
+      return axios({
+        method: 'PATCH',
+        url: `/questions/view/${payload}`,
+        headers: {
+          jwt_token: localStorage.getItem('token'),
+        },
+      });
+    },
     addQuestion(context, payload) {
       return axios({
         method: 'POST',

@@ -17,7 +17,7 @@
                     </router-link>
                 </div>
                 <div v-if="$store.state.isLogin === true" class="buttons">
-                    <button @click.prevent="signOut" class="button is-warning">
+                    <button @click.prevent="signOut" class="button is-light">
                         Log out
                     </button>
                 </div>

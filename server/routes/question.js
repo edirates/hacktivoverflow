@@ -9,6 +9,7 @@ router.get("/:id", QuestionController.findOne);
 
 router.use(authentication);
 router.post("/", QuestionController.create);
+router.patch("/view/:id", QuestionController.view);
 router.patch("/upvote/:id", QuestionController.upvote);
 router.patch("/downvote/:id", QuestionController.downvote);
 router.patch('/solution/:id', questionAuthorization, QuestionController.solution);

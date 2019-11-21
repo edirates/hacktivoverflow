@@ -15,6 +15,7 @@
                   <div><small> votes </small></div>
                   <div><b> {{ question.answers.length }} </b></div>
                   <div><small> answers </small></div>
+                  <div style="margin-top:10px; font-size:14px;"><small> {{ question.views.length }} views </small></div>
               </figure>
               <div class="media-content">
                   <div class="content">

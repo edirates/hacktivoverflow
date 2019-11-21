@@ -135,6 +135,22 @@ class QuestionController {
         });
     }
 
+    static view(req, res, next) {
+        Question.findById(req.params.id)
+        .then((question) => {
+            if (question.views.includes(req.user._id) === false) {
+                question.views.push(req.user._id);
+                return question.save();
+            }
+        })
+        .then((viewed) => {
+            res.status(200).json({ message: "Viewed question" });
+        })
+        .catch((err) => {
+            next(err);
+        });
+    }
+
     static upvote(req, res, next) {
         Question.findById(req.params.id)
         .then((question) => {

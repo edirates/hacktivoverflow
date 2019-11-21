@@ -3,7 +3,8 @@
         <div class="header" style="display:flex; justify-content:space-between; text-align:left; margin-bottom:10px; padding-bottom:10px; border-bottom:2px solid whitesmoke;">
             <div>
                 <h1 style="font-size:32px; font-weight:strong;">{{ $store.state.question_detail.title }}</h1>
-                <small>asked {{ formatDate($store.state.question_detail.createdAt) }}</small>
+                <small>asked <b> {{ formatDate($store.state.question_detail.createdAt) }} </b></small>
+                <small style="margin-left:50px;">Viewed <b> {{ $store.state.question_detail.views.length }} times </b></small>
             </div>
             <div>
                 <b-button @click.prevent="$router.push('/add-question')" type="is-info">Ask Question</b-button>
@@ -104,6 +105,15 @@ export default {
       this.$store.dispatch('getQuestionDetail', this.$route.params.id)
         .then((response) => {
           this.$store.commit('SET_QUESTION_DETAIL', response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.danger(err.response.data.message);
+        });
+    },
+    viewQuestion() {
+      this.$store.dispatch('viewQuestion', this.$route.params.id)
+        .then((response) => {
         })
         .catch((err) => {
           console.log(err);
@@ -226,6 +236,7 @@ export default {
     },
   },
   created() {
+    this.viewQuestion();
     this.getQuestionDetail();
   },
   components: {

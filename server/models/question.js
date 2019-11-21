@@ -32,6 +32,10 @@ const questionSchema = new Schema({
         type: Array,
         default: []
     },
+    views: [{
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    }],
     UserId: {
         type: Schema.Types.ObjectId,
         ref: "User",
