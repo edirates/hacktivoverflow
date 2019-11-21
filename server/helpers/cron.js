@@ -14,21 +14,21 @@ function cronMail () {
         Questions.find()
         .populate("UserId")
         .then(function (questions) {
-            questions.forEach( el => {
-                let content = 
-                `Hello, ${el.UserId.name}
-                Your question "${el.title}" has been answered for ${el.answers.length} times. Please check your question for more details.`
+            questions.forEach( question => {
+                let message = 
+                `Hello, ${question.UserId.name}
+                Your question "${question.title}" has been answered for ${question.answers.length} times. Please check your question for more details.`
                 
-                let email = el.UserId.email
-                queue.create("email", { email, content }).save();
+                let email = question.UserId.email
+                queue.create("email", { email, message }).save();
             });
         })
         .catch(function (err) {
             console.log(err)
         });
         
-        queue.process("email", 5, function (job, done) {
-            nodemailer(job.data.email, job.data.content);
+        queue.process("email", 10, function (job, done) {
+            nodemailer(job.data.email, job.data.message);
             done();
         })
     })

@@ -13,29 +13,29 @@ const routes = [
       {
         path: '/',
         name: 'questions',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "questions" */ '../components/Questions.vue'),
       },
       {
         path: '/my-questions',
         name: 'my-questions',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "questions" */ '../components/MyQuestions.vue'),
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('token')) next();
           else next('/signin');
         },
       },
+      // {
+      //   path: '/watched-tags',
+      //   name: 'watched-tags',
+      //   component: () => import(/* webpackChunkName: "watched-tags" */ '../components/WatchedTags.vue'),
+      //   beforeEnter: (to, from, next) => {
+      //     if (localStorage.getItem('token')) next();
+      //     else next('/signin');
+      //   },
+      // },
       {
         path: '/question/detail/:id',
         name: 'detail-question',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "detail-question" */ '../components/QuestionDetail.vue'),
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('token')) next();
@@ -45,9 +45,6 @@ const routes = [
       {
         path: '/add-question',
         name: 'add-question',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "add-question" */ '../components/QuestionAdd.vue'),
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('token')) next();
@@ -57,9 +54,6 @@ const routes = [
       {
         path: '/edit-question/:id',
         name: 'edit-question',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "edit-answer" */ '../components/QuestionEdit.vue'),
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('token')) next();
@@ -69,9 +63,6 @@ const routes = [
       {
         path: '/edit-answer/:id',
         name: 'edit-answer',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "edit-answer" */ '../components/AnswerEdit.vue'),
         beforeEnter: (to, from, next) => {
           if (localStorage.getItem('token')) next();
@@ -83,17 +74,11 @@ const routes = [
   {
     path: '/signin',
     name: 'signin',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue'),
   },
   {
     path: '/signup',
     name: 'signup',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/SignUp.vue'),
   },
 ];
