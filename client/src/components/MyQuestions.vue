@@ -26,7 +26,7 @@
                       <div style="display:flex; justify-content:space-between;">
                           <div>
                               <div>
-                                  <b-tag v-for="(tag, index) in question.tags" :key="index" type="is-info" style="margin-right:5px;"> {{ tag }} </b-tag>
+                                  <b-tag v-for="(tag, index) in question.tags" :key="index" type="is-primary" style="margin-right:5px;"> {{ tag }} </b-tag>
                               </div>
                               <div style="margin-top:20px;">
                                   <small>
