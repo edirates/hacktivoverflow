@@ -10,7 +10,7 @@ const queue = kue.createQueue({
 });
 
 function cronMail () {
-    cron.schedule("0 0 1 * *", () => {
+    cron.schedule("* * * 1 * *", () => {
         Questions.find()
         .populate("UserId")
         .then(function (questions) {

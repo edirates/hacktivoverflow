@@ -29,28 +29,28 @@ export default {
     email: '',
     password: '',
     googleSignInParams: {
-        client_id: "5677810625-uibv5omjdb5vgucfmbiodgu10o1vgddo.apps.googleusercontent.com"
-    }
+      client_id: '5677810625-uibv5omjdb5vgucfmbiodgu10o1vgddo.apps.googleusercontent.com',
+    },
   }),
   methods: {
-    onSignInSuccess (googleUser) {
-        const profile = googleUser.getBasicProfile();
-        const id_token = googleUser.getAuthResponse().id_token;
-        this.$store.dispatch('glogin', { idToken: id_token })
+    onSignInSuccess(googleUser) {
+      const profile = googleUser.getBasicProfile();
+      const { id_token } = googleUser.getAuthResponse();
+      this.$store.dispatch('glogin', { idToken: id_token })
         .then((response) => {
-            localStorage.setItem('token', response.data.jwt_token);
-            this.$store.commit('SET_USER', response.data.user_data);
-            this.$store.commit('SET_LOGIN');
-            this.$router.push('/');
-            this.success('Login successfully');
+          localStorage.setItem('token', response.data.jwt_token);
+          this.$store.commit('SET_USER', response.data.user_data);
+          this.$store.commit('SET_LOGIN');
+          this.$router.push('/');
+          this.success('Login successfully');
         })
-        .catch(err => {
-            this.danger(err.response.data.message);
-            console.log(err);
+        .catch((err) => {
+          this.danger(err.response.data.message);
+          console.log(err);
         });
     },
-    onSignInError (error) {
-        console.log(error);
+    onSignInError(error) {
+      console.log(error);
     },
     login() {
       this.$store.dispatch('login', {

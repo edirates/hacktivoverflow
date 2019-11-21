@@ -1,5 +1,5 @@
 import VueQuillEditor from 'vue-quill-editor';
-import GSignInButton from "vue-google-signin-button";
+import GSignInButton from 'vue-google-signin-button';
 import Vue from 'vue';
 import Buefy from 'buefy';
 import App from './App.vue';

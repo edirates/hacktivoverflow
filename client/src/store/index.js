@@ -63,7 +63,7 @@ export default new Vuex.Store({
         method: 'POST',
         url: '/users/gsignin',
         data: {
-          idToken: payload.idToken
+          idToken: payload.idToken,
         },
       });
     },

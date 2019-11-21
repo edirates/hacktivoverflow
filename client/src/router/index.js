@@ -25,6 +25,10 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "questions" */ '../components/MyQuestions.vue'),
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('token')) next();
+          else next('/signin');
+        },
       },
       {
         path: '/question/detail/:id',
@@ -33,6 +37,10 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "detail-question" */ '../components/QuestionDetail.vue'),
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('token')) next();
+          else next('/signin');
+        },
       },
       {
         path: '/add-question',
@@ -41,6 +49,10 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "add-question" */ '../components/QuestionAdd.vue'),
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('token')) next();
+          else next('/signin');
+        },
       },
       {
         path: '/edit-question/:id',
@@ -49,6 +61,10 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "edit-answer" */ '../components/QuestionEdit.vue'),
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('token')) next();
+          else next('/signin');
+        },
       },
       {
         path: '/edit-answer/:id',
@@ -57,6 +73,10 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "edit-answer" */ '../components/AnswerEdit.vue'),
+        beforeEnter: (to, from, next) => {
+          if (localStorage.getItem('token')) next();
+          else next('/signin');
+        },
       },
     ],
   },
