@@ -29,7 +29,7 @@ export default {
     email: '',
     password: '',
     googleSignInParams: {
-      client_id: '818780807097-soi08v80h74e3s2305om2d7t0bunc2uf.apps.googleusercontent.com',
+      client_id: '5677810625-uibv5omjdb5vgucfmbiodgu10o1vgddo.apps.googleusercontent.com',
     },
   }),
   methods: {
